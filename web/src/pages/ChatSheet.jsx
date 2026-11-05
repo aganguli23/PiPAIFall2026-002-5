@@ -251,7 +251,7 @@ export default function ChatSheet({ sid, s, setS, schema, skip, unlocked, onUnlo
         <form className="ims-compose" onSubmit={send}>
           <div className="ims-field">
             <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)}
-              placeholder="iMessage" aria-label="Message" />
+              placeholder="Message" aria-label="Message" />
             <button className="ims-send" disabled={!text.trim() || busy || pacing} aria-label="Send">
               <svg viewBox="0 0 24 24"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>
             </button>
