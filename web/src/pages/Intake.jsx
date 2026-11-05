@@ -1,37 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+// Intake: the conversation opens fullscreen (ChatSheet). Behind it sits the form the assistant fills; the seller reviews
+// it here (red outlines = still needed), edits anything, checks the terms box themselves and continues to the valuation.
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api, num } from "../api.js";
+import ChatSheet from "./ChatSheet.jsx";
 import FieldForm from "./FieldForm.jsx";
-import VoicePanel from "./VoicePanel.jsx";
 
 export default function Intake() {
   const { sid } = useParams();
   const nav = useNavigate();
   const [schema, setSchema] = useState(null);
   const [s, setS] = useState(null);
-  const [text, setText] = useState("");
+  const [chat, setChat] = useState(false);
   const [busy, setBusy] = useState(false);
   const [tc, setTc] = useState(false);
   const [err, setErr] = useState("");
-  const endRef = useRef(null);
 
   useEffect(() => {
     api.get("/intake/schema").then(setSchema);
-    api.get(`/intake/sessions/${sid}`).then(setS);
+    api.get(`/intake/sessions/${sid}`).then((v) => {
+      setS(v);
+      setChat(v.status !== "submitted" && v.status !== "review" && v.missing.length > 0);
+    });
   }, [sid]);
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [s?.transcript?.length]);
 
-  const send = async (e) => {
-    e?.preventDefault();
-    if (!text.trim()) return;
-    setBusy(true);
-    setErr("");
-    const t = text;
-    setText("");
-    try { setS(await api.post(`/intake/sessions/${sid}/message`, { text: t })); }
-    catch (x) { setErr(x.message); }
-    setBusy(false);
-  };
   const edit = async (patch) => setS(await api.put(`/intake/sessions/${sid}/fields`, { fields: patch }));
   const lookup = async () => {
     setBusy(true);
@@ -54,22 +46,17 @@ export default function Intake() {
   const ready = s.missing.length === 0;
   const subj = s.subject;
   return (
-    <div className="intake">
-      <section className="chat card">
-        <h3>{s.mode === "voice" ? "Voice assistant" : "Chat with the assistant"}</h3>
-        {s.mode === "voice" && <VoicePanel sid={sid} onUpdate={setS} />}
-        <div className="messages">
-          {s.transcript.map((m, i) => <div key={i} className={"bubble " + m.role}>{m.text}</div>)}
-          <div ref={endRef} />
+    <div className="review">
+      {chat && <ChatSheet sid={sid} s={s} setS={setS} schema={schema.fields} skip={schema.skip_token}
+        onClose={() => setChat(false)} />}
+      <section className="card">
+        <div className="review-head">
+          <div>
+            <h2>Review your answers</h2>
+            <p className="muted small">The assistant filled this in from your conversation. Edit anything; fields outlined in red still need an answer.</p>
+          </div>
+          <button className="secondary" onClick={() => setChat(true)}>💬 Back to chat</button>
         </div>
-        <form onSubmit={send} className="composer">
-          <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Type your answer…" disabled={busy} />
-          <button className="primary" disabled={busy}>Send</button>
-        </form>
-      </section>
-      <section className="form card">
-        <h3>Your property details</h3>
-        <p className="muted small">Filled in as you talk. Anything still empty is outlined in red. You can edit every field.</p>
         {s.fields.address && (
           <div className="lot">
             <button className="secondary small" onClick={lookup} disabled={busy}>Look up my lot</button>
@@ -94,6 +81,9 @@ export default function Intake() {
           </button>
         </div>
       </section>
+      {!chat && <button className="ims-fab" onClick={() => setChat(true)} aria-label="Open chat">
+        <svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.8 2 11.5c0 2.4 1.2 4.6 3.1 6.1L4.5 21l3.9-2c1.1.3 2.3.5 3.6.5 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" /></svg>
+      </button>}
     </div>
   );
 }
