@@ -7,7 +7,7 @@ import { api, label, num } from "../api.js";
 import { isShown } from "./FieldForm.jsx";
 
 export const GATE = 10;          // messages from EACH side before the form appears
-const WPM = 60;                  // assistant "typing" speed; a typical person types ~40 wpm
+const WPM = 150;                 // assistant "typing" speed (2.5x the first 60 wpm); a typical person types ~40 wpm
 const MIN_TYPE_MS = 700;
 const MAX_TYPE_MS = 8000;        // cap so one long bubble never stalls the chat
 const typeMs = (t) => Math.min(MAX_TYPE_MS, Math.max(MIN_TYPE_MS, (t.trim().split(/\s+/).length / WPM) * 60000));
