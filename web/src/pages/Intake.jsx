@@ -1,17 +1,23 @@
-// Intake: the conversation opens fullscreen (ChatSheet). Behind it sits the form the assistant fills; the seller reviews
-// it here (red outlines = still needed), edits anything, checks the terms box themselves and continues to the valuation.
+// Intake: the conversation comes first, fullscreen (ChatSheet). The form the assistant fills stays hidden until the
+// conversation unlocks it (GATE messages from each side, every question answered, or "Skip conversation"); then it fades
+// in and the seller edits anything (red outlines = still needed), checks the terms box themselves and continues.
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api, num } from "../api.js";
-import ChatSheet from "./ChatSheet.jsx";
+import ChatSheet, { gateMet } from "./ChatSheet.jsx";
 import FieldForm from "./FieldForm.jsx";
+
+const unlockKey = (sid) => `lotwise-form-unlocked-${sid}`;
+const wasUnlocked = (sid) => { try { return localStorage.getItem(unlockKey(sid)) === "1"; } catch { return false; } };
+const rememberUnlock = (sid) => { try { localStorage.setItem(unlockKey(sid), "1"); } catch { /* storage blocked: fine */ } };
 
 export default function Intake() {
   const { sid } = useParams();
   const nav = useNavigate();
   const [schema, setSchema] = useState(null);
   const [s, setS] = useState(null);
-  const [chat, setChat] = useState(false);
+  const [chat, setChat] = useState(true);
+  const [unlocked, setUnlocked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [tc, setTc] = useState(false);
   const [err, setErr] = useState("");
@@ -20,9 +26,12 @@ export default function Intake() {
     api.get("/intake/schema").then(setSchema);
     api.get(`/intake/sessions/${sid}`).then((v) => {
       setS(v);
-      setChat(v.status !== "submitted" && v.status !== "review" && v.missing.length > 0);
+      const u = v.status === "submitted" || v.status === "review" || wasUnlocked(sid) || gateMet(v.transcript);
+      setUnlocked(u);
+      setChat(!u);
     });
   }, [sid]);
+  const unlock = () => { rememberUnlock(sid); setUnlocked(true); };
 
   const edit = async (patch) => setS(await api.put(`/intake/sessions/${sid}/fields`, { fields: patch }));
   const lookup = async () => {
@@ -48,12 +57,14 @@ export default function Intake() {
   return (
     <div className="review">
       {chat && <ChatSheet sid={sid} s={s} setS={setS} schema={schema.fields} skip={schema.skip_token}
+        unlocked={unlocked} onUnlock={unlock}
         onClose={() => setChat(false)} />}
-      <section className="card">
+      {unlocked && !chat && <>
+      <section className="card form-in">
         <div className="review-head">
           <div>
-            <h2>Review your answers</h2>
-            <p className="muted small">The assistant filled this in from your conversation. Edit anything; fields outlined in red still need an answer.</p>
+            <h2>Your property details</h2>
+            <p className="muted small">Filled in from your conversation. Edit anything; fields outlined in red still need an answer.</p>
           </div>
           <button className="secondary" onClick={() => setChat(true)}>💬 Back to chat</button>
         </div>
@@ -81,9 +92,10 @@ export default function Intake() {
           </button>
         </div>
       </section>
-      {!chat && <button className="ims-fab" onClick={() => setChat(true)} aria-label="Open chat">
+      <button className="ims-fab" onClick={() => setChat(true)} aria-label="Open chat">
         <svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.8 2 11.5c0 2.4 1.2 4.6 3.1 6.1L4.5 21l3.9-2c1.1.3 2.3.5 3.6.5 5.5 0 10-3.8 10-8.5S17.5 3 12 3z" /></svg>
-      </button>}
+      </button>
+      </>}
     </div>
   );
 }
