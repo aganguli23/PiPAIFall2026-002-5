@@ -223,7 +223,7 @@ export default function ChatSheet({ sid, s, setS, schema, skip, unlocked, onUnlo
 
         <div className="ims-thread">
           <div className="ims-inner">
-            <div className="ims-stamp"><b>iMessage</b><br />Today {started.current}</div>
+            <div className="ims-stamp">Today {started.current}</div>
             {msgs.map((m, i) => {
               if (m.type === "saved") return (
                 <div key={i} className="ims-note">✓ Saved to your form: {m.items.map(([k, v]) => <span key={k}><b>{k}</b> {v}</span>)}</div>
