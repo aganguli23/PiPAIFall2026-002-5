@@ -1,0 +1,215 @@
+zoning_code,table_kind,table_district,residential_equivalent,resid_far_narrow,resid_far_wide,wide_narrow_differs,qah_far_narrow,qah_far_wide,commercial_far,manufacturing_far,overlay_comm_far_in_r1_r5,overlay_comm_far_in_r6_r10,max_far_narrow,max_far_use,max_far_qah_narrow,far_sources
+BPC,not in tables,,,,,N,,,,,,,,,,
+C1-1,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C1-2,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C1-3,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C1-4,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C1-5,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C1-6,commercial,C1 And C2,R7-2,3.44,4,Y,5.01,5.01,2,,,,3.44,residential,5.01,commercial FAR; residential equivalent R7-2; baseline FAR (narrow street)
+C1-6A,commercial,C1 And C2,R7A,4,4,N,5.01,5.01,2,,,,4,residential,5.01,commercial FAR; residential equivalent R7A; baseline FAR
+C1-7,commercial,C1 And C2,R8,7.2,7.2,N,8.64,8.64,2,,,,7.2,residential,8.64,commercial FAR; residential equivalent R8; baseline FAR
+C1-7A,commercial,C1 And C2,R8A,6.02,6.02,N,7.2,7.2,2,,,,6.02,residential,7.2,commercial FAR; residential equivalent R8A; baseline FAR
+C1-8,commercial,C1 And C2,R9,7.52,7.52,N,9.02,9.02,2,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9; baseline FAR
+C1-8A,commercial,C1 And C2,R9A,7.52,7.52,N,9.02,9.02,2,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9A; baseline FAR
+C1-8X,commercial,C1 And C2,R9X,9,9,N,10.8,10.8,2,,,,9,residential,10.8,commercial FAR; residential equivalent R9X; baseline FAR
+C1-9,commercial,C1 And C2,R10,10,10,N,12,12,2,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C1-9A,commercial,C1 And C2,R10A,10,10,N,12,12,2,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C2-1,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C2-2,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C2-3,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C2-4,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C2-5,commercial overlay,C1 And C2 Overlays,,,,N,,,,,1,2,,,,C1/C2 overlay FAR bands
+C2-6,commercial,C1 And C2,R7-2,3.44,4,Y,5.01,5.01,2,,,,3.44,residential,5.01,commercial FAR; residential equivalent R7-2; baseline FAR (narrow street)
+C2-6A,commercial,C1 And C2,R7A,4,4,N,5.01,5.01,2,,,,4,residential,5.01,commercial FAR; residential equivalent R7A; baseline FAR
+C2-7,commercial,C1 And C2,R9,7.52,7.52,N,9.02,9.02,2,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9; baseline FAR
+C2-7A,commercial,C1 And C2,R9A,7.52,7.52,N,9.02,9.02,2,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9A; baseline FAR
+C2-8,commercial,C1 And C2,R10,10,10,N,12,12,2,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C2-8A,commercial,C1 And C2,R10A,10,10,N,12,12,2,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C3,commercial,C3 And C3A,R3-2,0.75,0.75,N,,,0.5,,,,0.75,residential,0.75,commercial FAR; residential equivalent R3-2; baseline FAR
+C3A,commercial,C3 And C3A,R3A,0.75,0.75,N,,,0.5,,,,0.75,residential,0.75,commercial FAR; residential equivalent R3A; baseline FAR
+C4-1,commercial,C4 Non-Contextual,R5,1.5,1.5,N,,,1,,,,1.5,residential,1.5,commercial FAR; residential equivalent R5; baseline FAR
+C4-2,commercial,C4 Non-Contextual,R6,2.2,3,Y,3.9,3.9,3.4,,,,3.4,commercial,3.9,commercial FAR; residential equivalent R6; baseline FAR (narrow street)
+C4-2A,commercial,C4 Contextual,R6A,3,3,N,3.9,3.9,3,,,,3,residential,3.9,commercial FAR; residential equivalent R6A; baseline FAR
+C4-2F,not in tables,,,,,N,,,,,,,,,,
+C4-3,commercial,C4 Non-Contextual,R6,2.2,3,Y,3.9,3.9,3.4,,,,3.4,commercial,3.9,commercial FAR; residential equivalent R6; baseline FAR (narrow street)
+C4-3A,commercial,C4 Contextual,R6A,3,3,N,3.9,3.9,3,,,,3,residential,3.9,commercial FAR; residential equivalent R6A; baseline FAR
+C4-4,commercial,C4 Non-Contextual,R7-2,3.44,4,Y,5.01,5.01,3.4,,,,3.44,residential,5.01,commercial FAR; residential equivalent R7-2; baseline FAR (narrow street)
+C4-4A,commercial,C4 Contextual,R7A,4,4,N,5.01,5.01,4,,,,4,residential,5.01,commercial FAR; residential equivalent R7A; baseline FAR
+C4-4D,commercial,C4 Contextual,R8A,6.02,6.02,N,7.2,7.2,3.4,,,,6.02,residential,7.2,commercial FAR; residential equivalent R8A; baseline FAR
+C4-4L,not in tables,,,,,N,,,,,,,,,,
+C4-5,commercial,C4 Non-Contextual,R7-2,3.44,4,Y,5.01,5.01,3.4,,,,3.44,residential,5.01,commercial FAR; residential equivalent R7-2; baseline FAR (narrow street)
+C4-5A,commercial,C4 Contextual,R7A,4,4,N,5.01,5.01,4,,,,4,residential,5.01,commercial FAR; residential equivalent R7A; baseline FAR
+C4-5D,commercial,C4 Contextual,R7D,4.66,4.66,N,5.6,5.6,4.2,,,,4.66,residential,5.6,commercial FAR; residential equivalent R7D; baseline FAR
+C4-5X,commercial,C4 Contextual,R7X,5,5,N,6,6,4,,,,5,residential,6,commercial FAR; residential equivalent R7X; baseline FAR
+C4-6,commercial,C4 Non-Contextual,R10,10,10,N,12,12,3.4,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C4-6A,commercial,C4 Contextual,R10A,10,10,N,12,12,3.4,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C4-7,commercial,C4 Non-Contextual,R10,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C5-1,commercial,C5,R10,10,10,N,12,12,4,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C5-1A,commercial,C5,R10A,10,10,N,12,12,4,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C5-2,commercial,C5,R10,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C5-2.5,not in tables,,,,,N,,,,,,,,,,
+C5-2A,commercial,C5,R10A,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C5-3,commercial,C5,R10,10,10,N,12,12,15,,,,15,commercial,15,commercial FAR; residential equivalent R10; baseline FAR
+C5-4,commercial,C5,R10,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C5-5,commercial,C5,R10,10,10,N,12,12,15,,,,15,commercial,15,commercial FAR; residential equivalent R10; baseline FAR
+C5-P,not in tables,,,,,N,,,,,,,,,,
+C6-1,commercial,C6,R7-2,3.44,4,Y,5.01,5.01,6,,,,6,commercial,6,commercial FAR; residential equivalent R7-2; baseline FAR (narrow street)
+C6-11,not in tables,,,,,N,,,,,,,,,,
+C6-12,not in tables,,,,,N,,,,,,,,,,
+C6-1A,commercial,C6,R6,2.2,3,Y,3.9,3.9,6,,,,6,commercial,6,commercial FAR; residential equivalent R6; baseline FAR (narrow street)
+C6-1G,not in tables,,,,,N,,,,,,,,,,
+C6-2,commercial,C6,R8,7.2,7.2,N,8.64,8.64,6,,,,7.2,residential,8.64,commercial FAR; residential equivalent R8; baseline FAR
+C6-2A,commercial,C6,R8A,6.02,6.02,N,7.2,7.2,6,,,,6.02,residential,7.2,commercial FAR; residential equivalent R8A; baseline FAR
+C6-2G,not in tables,,,,,N,,,,,,,,,,
+C6-2M,not in tables,,,,,N,,,,,,,,,,
+C6-3,commercial,C6,R9,7.52,7.52,N,9.02,9.02,6,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9; baseline FAR
+C6-3A,commercial,C6,R9A,7.52,7.52,N,9.02,9.02,6,,,,7.52,residential,9.02,commercial FAR; residential equivalent R9A; baseline FAR
+C6-3D,commercial,C6,R9D,9,9,N,10.8,10.8,9,,,,9,residential,10.8,commercial FAR; residential equivalent R9D; baseline FAR
+C6-3X,commercial,C6,R9X,9,9,N,10.8,10.8,6,,,,9,residential,10.8,commercial FAR; residential equivalent R9X; baseline FAR
+C6-4,commercial,C6,R10,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C6-4.5,not in tables,,,,,N,,,,,,,,,,
+C6-4A,commercial,C6,R10A,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10A; baseline FAR
+C6-4M,not in tables,,,,,N,,,,,,,,,,
+C6-4X,commercial,C6,R10X,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10X; baseline FAR
+C6-5,commercial,C6,R10,10,10,N,12,12,10,,,,10,residential,12,commercial FAR; residential equivalent R10; baseline FAR
+C6-5.5,not in tables,,,,,N,,,,,,,,,,
+C6-6,commercial,C6,R10,10,10,N,12,12,15,,,,15,commercial,15,commercial FAR; residential equivalent R10; baseline FAR
+C6-6.5,not in tables,,,,,N,,,,,,,,,,
+C6-7,commercial,C6,R10,10,10,N,12,12,15,,,,15,commercial,15,commercial FAR; residential equivalent R10; baseline FAR
+C6-7T,not in tables,,,,,N,,,,,,,,,,
+C6-9,commercial,C6,R10,10,10,N,12,12,15,,,,15,commercial,15,commercial FAR; residential equivalent R10; baseline FAR
+C7,commercial,C7,,,,N,,,2,,,,2,commercial,2,commercial FAR
+C7-1,not in tables,,,,,N,,,,,,,,,,
+C8-1,commercial,C8,,,,N,,,1,,,,1,commercial,1,commercial FAR
+C8-2,commercial,C8,,,,N,,,2,,,,2,commercial,2,commercial FAR
+C8-3,commercial,C8,,,,N,,,2,,,,2,commercial,2,commercial FAR
+C8-4,commercial,C8,,,,N,,,5,,,,5,commercial,5,commercial FAR
+M1-1,manufacturing,M1,,,,N,,,,1,,,1,manufacturing,1,
+M1-1/R5,paired M/R (mixed use),R5,R5,1.5,1.5,N,,,,1,,,1.5,residential,1.5,paired MX resid side R5; residential equivalent R5; baseline FAR
+M1-1/R6A,paired M/R (mixed use),R6A | R6-1,R6A,3,3,N,3.9,3.9,,1,,,3,residential,3.9,paired MX resid side R6A; residential equivalent R6A; baseline FAR
+M1-1/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,1,,,3.44,residential,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-1/R7D,paired M/R (mixed use),R7D,R7D,4.66,4.66,N,5.6,5.6,,1,,,4.66,residential,5.6,paired MX resid side R7D; residential equivalent R7D; baseline FAR
+M1-1A/R6B,paired M/R (mixed use),R6B,R6B,2,2,N,2.4,2.4,,2,,,2,residential,2.4,paired MX resid side R6B; residential equivalent R6B; baseline FAR
+M1-1A/R7-3,paired M/R (mixed use),R7X and R7-3,R7-3,5,5,N,6,6,,2,,,5,residential,6,paired MX resid side R7-3; residential equivalent R7-3; baseline FAR
+M1-1D,manufacturing,M1,,,,N,,,,1,,,1,manufacturing,1,
+M1-2,manufacturing,M1,,,,N,,,,2,,,2,manufacturing,2,
+M1-2/R5B,paired M/R (mixed use),R5B,R5B,1.5,1.5,N,,,,2,,,2,manufacturing,2,paired MX resid side R5B; residential equivalent R5B; baseline FAR
+M1-2/R5D,paired M/R (mixed use),R5D,R5D,2,2,N,,,,2,,,2,residential,2,paired MX resid side R5D; residential equivalent R5D; baseline FAR
+M1-2/R6,paired M/R (mixed use),R6,R6,2.2,3,Y,3.9,3.9,,2,,,2.2,residential,3.9,paired MX resid side R6; residential equivalent R6; baseline FAR (narrow street)
+M1-2/R6A,paired M/R (mixed use),R6A | R6-1,R6A,3,3,N,3.9,3.9,,2,,,3,residential,3.9,paired MX resid side R6A; residential equivalent R6A; baseline FAR
+M1-2/R6B,paired M/R (mixed use),R6B,R6B,2,2,N,2.4,2.4,,2,,,2,residential,2.4,paired MX resid side R6B; residential equivalent R6B; baseline FAR
+M1-2/R7-1,paired M/R (mixed use),R7-1 and R7-2,R7-1,3.44,4,Y,5.01,5.01,,2,,,3.44,residential,5.01,paired MX resid side R7-1; residential equivalent R7-1; baseline FAR (narrow street)
+M1-2/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,2,,,3.44,residential,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-2/R7A,paired M/R (mixed use),R7A,R7A,4,4,N,5.01,5.01,,2,,,4,residential,5.01,paired MX resid side R7A; residential equivalent R7A; baseline FAR
+M1-2/R8,paired M/R (mixed use),R8,R8,7.2,7.2,N,8.64,8.64,,2,,,7.2,residential,8.64,paired MX resid side R8; residential equivalent R8; baseline FAR
+M1-2/R8A,paired M/R (mixed use),R8A,R8A,6.02,6.02,N,7.2,7.2,,2,,,6.02,residential,7.2,paired MX resid side R8A; residential equivalent R8A; baseline FAR
+M1-2A,manufacturing,M1,,,,N,,,,3,,,3,manufacturing,3,
+M1-2A/R6A,paired M/R (mixed use),R6A | R6-1,R6A,3,3,N,3.9,3.9,,3,,,3,residential,3.9,paired MX resid side R6A; residential equivalent R6A; baseline FAR
+M1-2A/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,3,,,3.44,residential,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-2A/R7A,paired M/R (mixed use),R7A,R7A,4,4,N,5.01,5.01,,3,,,4,residential,5.01,paired MX resid side R7A; residential equivalent R7A; baseline FAR
+M1-2D,manufacturing,M1,,,,N,,,,2,,,2,manufacturing,2,
+M1-3,manufacturing,M1,,,,N,,,,5,,,5,manufacturing,5,
+M1-3/R7D,paired M/R (mixed use),R7D,R7D,4.66,4.66,N,5.6,5.6,,5,,,5,manufacturing,5.6,paired MX resid side R7D; residential equivalent R7D; baseline FAR
+M1-3/R7X,paired M/R (mixed use),R7X and R7-3,R7X,5,5,N,6,6,,5,,,5,residential,6,paired MX resid side R7X; residential equivalent R7X; baseline FAR
+M1-3/R8,paired M/R (mixed use),R8,R8,7.2,7.2,N,8.64,8.64,,5,,,7.2,residential,8.64,paired MX resid side R8; residential equivalent R8; baseline FAR
+M1-3A,manufacturing,M1,,,,N,,,,4,,,4,manufacturing,4,
+M1-3A/R7A,paired M/R (mixed use),R7A,R7A,4,4,N,5.01,5.01,,4,,,4,residential,5.01,paired MX resid side R7A; residential equivalent R7A; baseline FAR
+M1-3A/R7D,paired M/R (mixed use),R7D,R7D,4.66,4.66,N,5.6,5.6,,4,,,4.66,residential,5.6,paired MX resid side R7D; residential equivalent R7D; baseline FAR
+M1-3A/R7X,paired M/R (mixed use),R7X and R7-3,R7X,5,5,N,6,6,,4,,,5,residential,6,paired MX resid side R7X; residential equivalent R7X; baseline FAR
+M1-4,manufacturing,M1,,,,N,,,,2,,,2,manufacturing,2,
+M1-4/R6,paired M/R (mixed use),R6,R6,2.2,3,Y,3.9,3.9,,2,,,2.2,residential,3.9,paired MX resid side R6; residential equivalent R6; baseline FAR (narrow street)
+M1-4/R6A,paired M/R (mixed use),R6A | R6-1,R6A,3,3,N,3.9,3.9,,2,,,3,residential,3.9,paired MX resid side R6A; residential equivalent R6A; baseline FAR
+M1-4/R6B,paired M/R (mixed use),R6B,R6B,2,2,N,2.4,2.4,,2,,,2,residential,2.4,paired MX resid side R6B; residential equivalent R6B; baseline FAR
+M1-4/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,2,,,3.44,residential,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-4/R7-3,paired M/R (mixed use),R7X and R7-3,R7-3,5,5,N,6,6,,2,,,5,residential,6,paired MX resid side R7-3; residential equivalent R7-3; baseline FAR
+M1-4/R7A,paired M/R (mixed use),R7A,R7A,4,4,N,5.01,5.01,,2,,,4,residential,5.01,paired MX resid side R7A; residential equivalent R7A; baseline FAR
+M1-4/R7D,paired M/R (mixed use),R7D,R7D,4.66,4.66,N,5.6,5.6,,2,,,4.66,residential,5.6,paired MX resid side R7D; residential equivalent R7D; baseline FAR
+M1-4/R7X,paired M/R (mixed use),R7X and R7-3,R7X,5,5,N,6,6,,2,,,5,residential,6,paired MX resid side R7X; residential equivalent R7X; baseline FAR
+M1-4/R8A,paired M/R (mixed use),R8A,R8A,6.02,6.02,N,7.2,7.2,,2,,,6.02,residential,7.2,paired MX resid side R8A; residential equivalent R8A; baseline FAR
+M1-4/R9,paired M/R (mixed use),R9,R9,7.52,7.52,N,9.02,9.02,,2,,,7.52,residential,9.02,paired MX resid side R9; residential equivalent R9; baseline FAR
+M1-4/R9A,paired M/R (mixed use),R9A,R9A,7.52,7.52,N,9.02,9.02,,2,,,7.52,residential,9.02,paired MX resid side R9A; residential equivalent R9A; baseline FAR
+M1-4A,manufacturing,M1,,,,N,,,,5,,,5,manufacturing,5,
+M1-4A/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,5,,,5,manufacturing,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-4A/R8A,paired M/R (mixed use),R8A,R8A,6.02,6.02,N,7.2,7.2,,5,,,6.02,residential,7.2,paired MX resid side R8A; residential equivalent R8A; baseline FAR
+M1-4A/R9A,paired M/R (mixed use),R9A,R9A,7.52,7.52,N,9.02,9.02,,5,,,7.52,residential,9.02,paired MX resid side R9A; residential equivalent R9A; baseline FAR
+M1-4D,manufacturing,M1,,,,N,,,,2,,,2,manufacturing,2,
+M1-5,manufacturing,M1,,,,N,,,,5,,,5,manufacturing,5,
+M1-5/R10,paired M/R (mixed use),R10,R10,10,10,N,12,12,,5,,,10,residential,12,paired MX resid side R10; residential equivalent R10; baseline FAR
+M1-5/R6A,paired M/R (mixed use),R6A | R6-1,R6A,3,3,N,3.9,3.9,,5,,,5,manufacturing,5,paired MX resid side R6A; residential equivalent R6A; baseline FAR
+M1-5/R7-2,paired M/R (mixed use),R7-1 and R7-2,R7-2,3.44,4,Y,5.01,5.01,,5,,,5,manufacturing,5.01,paired MX resid side R7-2; residential equivalent R7-2; baseline FAR (narrow street)
+M1-5/R7-3,paired M/R (mixed use),R7X and R7-3,R7-3,5,5,N,6,6,,5,,,5,residential,6,paired MX resid side R7-3; residential equivalent R7-3; baseline FAR
+M1-5/R7D,paired M/R (mixed use),R7D,R7D,4.66,4.66,N,5.6,5.6,,5,,,5,manufacturing,5.6,paired MX resid side R7D; residential equivalent R7D; baseline FAR
+M1-5/R7X,paired M/R (mixed use),R7X and R7-3,R7X,5,5,N,6,6,,5,,,5,residential,6,paired MX resid side R7X; residential equivalent R7X; baseline FAR
+M1-5/R8A,paired M/R (mixed use),R8A,R8A,6.02,6.02,N,7.2,7.2,,5,,,6.02,residential,7.2,paired MX resid side R8A; residential equivalent R8A; baseline FAR
+M1-5/R9,paired M/R (mixed use),R9,R9,7.52,7.52,N,9.02,9.02,,5,,,7.52,residential,9.02,paired MX resid side R9; residential equivalent R9; baseline FAR
+M1-5/R9-1,paired M/R (mixed use),R9D and R9-1,R9-1,9,9,N,10.8,10.8,,5,,,9,residential,10.8,paired MX resid side R9-1; residential equivalent R9-1; baseline FAR
+M1-5/R9A,paired M/R (mixed use),R9A,R9A,7.52,7.52,N,9.02,9.02,,5,,,7.52,residential,9.02,paired MX resid side R9A; residential equivalent R9A; baseline FAR
+M1-5/R9X,paired M/R (mixed use),R9X,R9X,9,9,N,10.8,10.8,,5,,,9,residential,10.8,paired MX resid side R9X; residential equivalent R9X; baseline FAR
+M1-5A,manufacturing,M1,,,,N,,,,6.5,,,6.5,manufacturing,6.5,
+M1-5A/R8,paired M/R (mixed use),R8,R8,7.2,7.2,N,8.64,8.64,,6.5,,,7.2,residential,8.64,paired MX resid side R8; residential equivalent R8; baseline FAR
+M1-5B,not in tables,,,,,N,,,,,,,,,,
+M1-5M,not in tables,,,,,N,,,,,,,,,,
+M1-6,manufacturing,M1,,,,N,,,,10,,,10,manufacturing,10,
+M1-6/R10,paired M/R (mixed use),R10,R10,10,10,N,12,12,,10,,,10,residential,12,paired MX resid side R10; residential equivalent R10; baseline FAR
+M1-6/R8X,paired M/R (mixed use),R8X,R8X,6.02,6.02,N,7.2,7.2,,10,,,10,manufacturing,10,paired MX resid side R8X; residential equivalent R8X; baseline FAR
+M1-6/R9,paired M/R (mixed use),R9,R9,7.52,7.52,N,9.02,9.02,,10,,,10,manufacturing,10,paired MX resid side R9; residential equivalent R9; baseline FAR
+M1-6A,manufacturing,M1,,,,N,,,,8,,,8,manufacturing,8,
+M1-6A/R10,paired M/R (mixed use),R10,R10,10,10,N,12,12,,8,,,10,residential,12,paired MX resid side R10; residential equivalent R10; baseline FAR
+M1-6A/R8,paired M/R (mixed use),R8,R8,7.2,7.2,N,8.64,8.64,,8,,,8,manufacturing,8.64,paired MX resid side R8; residential equivalent R8; baseline FAR
+M1-6A/R9,paired M/R (mixed use),R9,R9,7.52,7.52,N,9.02,9.02,,8,,,8,manufacturing,9.02,paired MX resid side R9; residential equivalent R9; baseline FAR
+M1-6A/R9A,paired M/R (mixed use),R9A,R9A,7.52,7.52,N,9.02,9.02,,8,,,8,manufacturing,9.02,paired MX resid side R9A; residential equivalent R9A; baseline FAR
+M1-8A/R11,paired M/R (mixed use),R11,R11,12,12,N,15,15,,12,,,12,residential,15,paired MX resid side R11; residential equivalent R11; baseline FAR
+M1-8A/R12,paired M/R (mixed use),R12,R12,15,15,N,18,18,,12,,,15,residential,18,paired MX resid side R12; residential equivalent R12; baseline FAR
+M1-8A/R9-1,paired M/R (mixed use),R9D and R9-1,R9-1,9,9,N,10.8,10.8,,12,,,12,manufacturing,12,paired MX resid side R9-1; residential equivalent R9-1; baseline FAR
+M1-9A,manufacturing,M1,,,,N,,,,15,,,15,manufacturing,15,
+M1-9A/R12,paired M/R (mixed use),R12,R12,15,15,N,18,18,,15,,,15,residential,18,paired MX resid side R12; residential equivalent R12; baseline FAR
+M2-1,manufacturing,M2,,,,N,,,,2,,,2,manufacturing,2,
+M2-2,manufacturing,M2,,,,N,,,,5,,,5,manufacturing,5,
+M2-3,manufacturing,M2,,,,N,,,,2,,,2,manufacturing,2,
+M2-3A,not in tables,,,,,N,,,,,,,,,,
+M2-4,manufacturing,M2,,,,N,,,,5,,,5,manufacturing,5,
+M3-1,manufacturing,M3,,,,N,,,,2,,,2,manufacturing,2,
+M3-2,manufacturing,M3,,,,N,,,,2,,,2,manufacturing,2,
+M3-2A,not in tables,,,,,N,,,,,,,,,,
+PARK,not in tables,,,,,N,,,,,,,,,,
+R1-1,residential,R1-1 | R1-2 | R1-2A,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R1-2,residential,R1-1 | R1-2 | R1-2A,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R1-2A,residential,R1-1 | R1-2 | R1-2A,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R10,residential,R10,,10,10,N,12,12,,,,,10,residential,12,baseline FAR
+R10A,residential,R10A,,10,10,N,12,12,,,,,10,residential,12,baseline FAR
+R10H,not in tables,,,,,N,,,,,,,,,,
+R2,residential,R2 | R2A | R2X,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R2A,residential,R2 | R2A | R2X,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R2X,residential,R2 | R2A | R2X,,1,1,N,,,,,,,1,residential,1,baseline FAR
+R3-1,residential,R3-1,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R3-2,residential,R3-2,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R3A,residential,R3A,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R3X,residential,R3X,,0.75,0.75,N,,,,,,,0.75,residential,0.75,baseline FAR
+R4,residential,R4,,1,1,N,,,,,,,1,residential,1,baseline FAR
+R4-1,residential,R4-1,,1,1,N,,,,,,,1,residential,1,baseline FAR
+R4A,residential,R4A,,1,1,N,,,,,,,1,residential,1,baseline FAR
+R4B,residential,R4B,,1,1,N,,,,,,,1,residential,1,baseline FAR
+R5,residential,R5,,1.5,1.5,N,,,,,,,1.5,residential,1.5,baseline FAR
+R5A,residential,R5A,,1.5,1.5,N,,,,,,,1.5,residential,1.5,baseline FAR
+R5B,residential,R5B,,1.5,1.5,N,,,,,,,1.5,residential,1.5,baseline FAR
+R5D,residential,R5D,,2,2,N,,,,,,,2,residential,2,baseline FAR
+R6,residential,R6,,2.2,3,Y,3.9,3.9,,,,,2.2,residential,3.9,baseline FAR (narrow street)
+R6-1,residential,R6A | R6-1,,3,3,N,3.9,3.9,,,,,3,residential,3.9,baseline FAR
+R6A,residential,R6A | R6-1,,3,3,N,3.9,3.9,,,,,3,residential,3.9,baseline FAR
+R6B,residential,R6B,,2,2,N,2.4,2.4,,,,,2,residential,2.4,baseline FAR
+R6D,residential,R6D | R6-2,,2.5,2.5,N,3,3,,,,,2.5,residential,3,baseline FAR
+R7-1,residential,R7-1 and R7-2,,3.44,4,Y,5.01,5.01,,,,,3.44,residential,5.01,baseline FAR (narrow street)
+R7-2,residential,R7-1 and R7-2,,3.44,4,Y,5.01,5.01,,,,,3.44,residential,5.01,baseline FAR (narrow street)
+R7-3,residential,R7X and R7-3,,5,5,N,6,6,,,,,5,residential,6,baseline FAR
+R7A,residential,R7A,,4,4,N,5.01,5.01,,,,,4,residential,5.01,baseline FAR
+R7B,residential,R7B,,3,3,N,3.9,3.9,,,,,3,residential,3.9,baseline FAR
+R7D,residential,R7D,,4.66,4.66,N,5.6,5.6,,,,,4.66,residential,5.6,baseline FAR
+R7X,residential,R7X and R7-3,,5,5,N,6,6,,,,,5,residential,6,baseline FAR
+R8,residential,R8,,7.2,7.2,N,8.64,8.64,,,,,7.2,residential,8.64,baseline FAR
+R8A,residential,R8A,,6.02,6.02,N,7.2,7.2,,,,,6.02,residential,7.2,baseline FAR
+R8B,residential,R8B,,4,4,N,4.8,4.8,,,,,4,residential,4.8,baseline FAR
+R8X,residential,R8X,,6.02,6.02,N,7.2,7.2,,,,,6.02,residential,7.2,baseline FAR
+R9,residential,R9,,7.52,7.52,N,9.02,9.02,,,,,7.52,residential,9.02,baseline FAR
+R9-1,residential,R9D and R9-1,,9,9,N,10.8,10.8,,,,,9,residential,10.8,baseline FAR
+R9A,residential,R9A,,7.52,7.52,N,9.02,9.02,,,,,7.52,residential,9.02,baseline FAR
+R9X,residential,R9X,,9,9,N,10.8,10.8,,,,,9,residential,10.8,baseline FAR
