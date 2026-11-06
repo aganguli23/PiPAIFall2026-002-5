@@ -18,8 +18,11 @@ def _coerce(field: dict, text: str):
         return float(m.group().replace(",", "")) if m else None
     if field["kind"] in ("select", "multiselect"):
         hits = [o for o in field["options"] if o.replace("_", " ") in low or o in low]
-        if field["key"] == "valuation_type" and not hits:
-            hits = ["fundamental"] if "income" in low or "existing" in low else ["development_site"]
+        if field["key"] == "valuation_type" and not hits:   # only clear keywords count; anything else gets re-asked
+            if any(w in low for w in ("income", "existing", "rental", "tenant", "cash flow", "noi")):
+                hits = ["fundamental"]
+            elif any(w in low for w in ("develop", "build", "land", "site", "vacant", "teardown", "air right")):
+                hits = ["development_site"]
         if field["key"] == "sale_structures" and not hits:
             hits = [s for s, w in (("fee", "sale"), ("ground_lease", "lease"), ("air_rights", "air")) if w in low]
         if not hits:
@@ -44,6 +47,6 @@ def reply(session: dict, user_text: str | None) -> tuple[str, dict, list[str]]:
     nxt = F.next_question(fields)
     if not nxt:
         return "Thanks! That's everything. Review the form, fill anything outlined in red, accept the terms and continue.", fields, filled
-    prefix = "Got it. " if filled else ("Hi! I'm the Lotwise valuation assistant (skeleton version). " if not user_text else "Sorry, I didn't catch that. ")
+    prefix = "Got it. " if filled else ("Hi! I'm the Lotwise valuation assistant (skeleton version). " if not user_text else "Hmm, that doesn't answer this one. ")
     session.setdefault("field_meta", {})["_asked"] = nxt["key"]
     return prefix + nxt["ask"] + ("" if F.is_required(nxt, fields) else " (optional, say 'skip')"), fields, filled

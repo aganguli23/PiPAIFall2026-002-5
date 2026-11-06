@@ -120,3 +120,34 @@ def resolve_subject(address: str, extra_lots: list[str] | None = None) -> dict:
         "bsf": round(bsf), "bsf_qah": round(bsf_qah), "mih": "Y" if mih else "N",
         "subway_dist_m": nearest_subway_m(g["lat"], g["lon"]), "ped": nearest_ped(g["lat"], g["lon"]),
     }
+
+
+def neighbor_lots(bbl: str) -> dict:
+    """Tax lots on the same block as `bbl`, nearest first, flagging the ones that share a side lot line.
+
+    PLUTO has lot centroids and frontage/depth but no polygons, so "adjacent" is estimated: two lots on the same block whose
+    centroids are no farther apart than ~1.25x their average frontage sit side by side. The seller confirms the list."""
+    bbl = str(bbl).split(".")[0]
+    if len(bbl) != 10 or not bbl.isdigit():
+        return {"ok": False, "error": "need the subject lot's 10-digit BBL (run lookup_property first)"}
+    boro, block = int(bbl[0]), int(bbl[1:6])
+    r = httpx.get(f"{SOCRATA}/64uk-42ks.json", headers=_headers(), timeout=20, params={
+        "$select": "bbl,address,lotarea,lotfront,lotdepth,zonedist1,landuse,latitude,longitude",
+        "$where": f"borocode={boro} AND block={block}", "$limit": 500})
+    r.raise_for_status()
+    rows = [dict(x, bbl=str(x["bbl"]).split(".")[0]) for x in r.json() if x.get("latitude") and x.get("longitude")]
+    me = next((x for x in rows if x["bbl"] == bbl), None)
+    if not me:
+        return {"ok": False, "error": f"lot {bbl} not found in PLUTO"}
+    ft = 3.28084
+    out = []
+    for x in rows:
+        if x["bbl"] == bbl:
+            continue
+        dist = haversine_m(float(me["latitude"]), float(me["longitude"]), float(x["latitude"]), float(x["longitude"])) * ft
+        side = (float(me.get("lotfront") or 0) + float(x.get("lotfront") or 0)) / 2
+        out.append({"bbl": x["bbl"], "address": (x.get("address") or "").title(), "lot_area_sf": round(float(x.get("lotarea") or 0)),
+                    "zoning": x.get("zonedist1"), "distance_ft": round(dist), "adjacent": bool(side) and dist <= 1.25 * side})
+    out.sort(key=lambda o: (not o["adjacent"], o["distance_ft"]))
+    return {"ok": True, "block_lots": len(rows), "adjacent": [o for o in out if o["adjacent"]],
+            "rest_of_block": [o for o in out if not o["adjacent"]][:8]}
