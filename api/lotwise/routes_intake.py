@@ -1,9 +1,11 @@
 """Intake: conversation -> fields (live form) -> review (red outlines) -> manual T&C -> valuation."""
+import asyncio
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from . import auth, db, engines
-from . import intake_assistant as assistant
+from . import intake_agent as agent
 from . import intake_fields as F
 from .config import TC_VERSION
 from .property_lookup import resolve_subject
@@ -35,11 +37,10 @@ class NewSession(BaseModel):
 
 @router.post("/sessions")
 def new_session(body: NewSession, user: dict = Depends(auth.current_user)):
-    s = db.run("INSERT INTO intake_sessions (user_id, mode) VALUES (%s, %s) RETURNING *", (user["id"], body.mode))
-    text, fields, _ = assistant.reply(s, None)
-    transcript = [{"role": "assistant", "text": text}]
-    s = db.run("""UPDATE intake_sessions SET transcript = %s, fields = %s, field_meta = %s, updated_at = now()
-                  WHERE id = %s RETURNING *""", (db.J(transcript), db.J(fields), db.J(s["field_meta"]), s["id"]))
+    init = agent.initial_state()
+    s = db.run("""INSERT INTO intake_sessions (user_id, mode, transcript, messages) VALUES (%s, %s, %s, %s) RETURNING *""",
+               (user["id"], body.mode if body.mode in ("chat", "voice", "form") else "chat",
+                db.J(init["transcript"]), db.J(init["messages"])))
     return _view(s)
 
 
@@ -53,15 +54,13 @@ class Message(BaseModel):
 
 
 @router.post("/sessions/{sid}/message")
-def message(sid: int, body: Message, user: dict = Depends(auth.current_user)):
-    s = _session(sid, user)
-    text, fields, filled = assistant.reply(s, body.text)
-    meta = s["field_meta"] or {}
-    for k in filled:
-        meta[k] = {"filled_by": "ai"}
-    transcript = (s["transcript"] or []) + [{"role": "user", "text": body.text}, {"role": "assistant", "text": text}]
-    s = db.run("""UPDATE intake_sessions SET transcript = %s, fields = %s, field_meta = %s, updated_at = now()
-                  WHERE id = %s RETURNING *""", (db.J(transcript), db.J(fields), db.J(meta), sid))
+async def message(sid: int, body: Message, user: dict = Depends(auth.current_user)):
+    s = await asyncio.to_thread(_session, sid, user)
+    out = await agent.run_turn(s, body.text.strip()[:4000], mode="chat")
+    s = await asyncio.to_thread(db.run, """UPDATE intake_sessions SET transcript = %s, messages = %s, fields = %s, field_meta = %s,
+                     subject = %s, updated_at = now() WHERE id = %s RETURNING *""",
+                     (db.J(out["transcript"]), db.J(out["messages"]), db.J(out["fields"]), db.J(out["field_meta"]),
+                      db.J(out["subject"]) if out.get("subject") is not None else None, sid))
     return _view(s)
 
 
