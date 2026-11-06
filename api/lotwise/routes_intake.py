@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from . import auth, db, engines
 from . import intake_agent as agent
 from . import intake_fields as F
+from . import usage
 from .config import TC_VERSION
 from .property_lookup import resolve_subject
 
@@ -45,6 +46,8 @@ class NewSession(BaseModel):
 
 @router.post("/sessions")
 def new_session(body: NewSession, user: dict = Depends(auth.current_user)):
+    if usage.sessions_block(user["id"]):
+        raise HTTPException(429, "You've started a lot of valuations today. Open one from My valuations, or try again tomorrow.")
     init = agent.initial_state()
     s = db.run("""INSERT INTO intake_sessions (user_id, mode, transcript, messages) VALUES (%s, %s, %s, %s) RETURNING *""",
                (user["id"], body.mode if body.mode in ("chat", "voice", "form") else "chat",

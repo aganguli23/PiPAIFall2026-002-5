@@ -8,10 +8,17 @@ export default function Home() {
   const nav = useNavigate();
   useEffect(() => { api.get("/valuations").then(setRows).catch(() => {}); }, []);
 
+  const [err, setErr] = useState("");
   const start = async (mode) => {
     setBusy(true);
-    const s = await api.post("/intake/sessions", { mode });
-    nav(`/intake/${s.id}`);
+    setErr("");
+    try {
+      const s = await api.post("/intake/sessions", { mode });
+      nav(`/intake/${s.id}`);
+    } catch (x) {
+      setErr(x.message);
+      setBusy(false);
+    }
   };
 
   return (
@@ -24,6 +31,7 @@ export default function Home() {
           <button className="primary" disabled={busy} onClick={() => start("chat")}>Chat with the assistant</button>
           <button className="secondary" disabled={busy} onClick={() => start("voice")}>Talk by voice</button>
         </div>
+        {err && <div className="error">{err}</div>}
       </section>
       <section className="card">
         <h3>My valuations</h3>

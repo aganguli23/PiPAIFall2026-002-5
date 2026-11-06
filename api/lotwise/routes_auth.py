@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response
 from pydantic import BaseModel
 
-from . import auth, db
+from . import auth, db, usage
 from .config import COOKIE_PATH, COOKIE_SECURE
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -25,7 +25,10 @@ def _set_cookie(resp: Response, token: str):
 
 
 @router.post("/signup")
-def signup(body: Signup, resp: Response):
+def signup(body: Signup, resp: Response, request: Request):
+    ip = (request.headers.get("x-forwarded-for") or (request.client.host if request.client else "")).split(",")[-1].strip()
+    if not usage.signup_ok(ip):
+        raise HTTPException(429, "Too many new accounts from this network today. Please try again tomorrow.")
     email = body.email.strip().lower()
     if "@" not in email or len(body.password) < 6:
         raise HTTPException(400, "Enter a valid email and a password of at least 6 characters")

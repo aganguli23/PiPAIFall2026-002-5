@@ -27,6 +27,7 @@ from openai import AsyncOpenAI
 from . import auth, db
 from . import intake_agent as agent
 from . import intake_fields as F
+from . import usage
 from .config import OPENAI_API_KEY, STT_MODEL, TTS_MODEL, TTS_VOICE
 
 log = logging.getLogger("lotwise.voice")
@@ -136,6 +137,7 @@ class VoiceSession:
             self.task = asyncio.create_task(self.respond(bytes(ev)))
 
     async def tts(self, sentence: str):
+        await asyncio.to_thread(usage.record, self.user["id"], tts_chars=len(sentence))
         carry = b""
         async with oai().audio.speech.with_streaming_response.create(
                 model=TTS_MODEL, voice=TTS_VOICE, input=sentence, response_format="pcm", instructions=TTS_STYLE) as resp:
@@ -148,6 +150,14 @@ class VoiceSession:
 
     async def respond(self, pcm: bytes):
         try:
+            secs = len(pcm) / 2 / RATE
+            await asyncio.to_thread(usage.record, self.user["id"], voice_sec=secs)
+            block = await asyncio.to_thread(usage.voice_block, self.user["id"])
+            if block:
+                await self.send("final_assistant_answer", "That's today's limit for voice, so let's keep going in the "
+                                                         "chat box. Just type your answer.")
+                await self.ws.close(code=4429)
+                return
             tr = await oai().audio.transcriptions.create(model=STT_MODEL, file=("speech.wav", to_wav(pcm), "audio/wav"),
                                                          language="en", prompt=STT_PROMPT)
             text = (tr.text or "").strip()
@@ -213,6 +223,12 @@ async def voice_ws(ws: WebSocket):
     if not own:
         await ws.send_text(json.dumps({"type": "final_assistant_answer", "content": "Please sign in and start an intake first."}))
         await ws.close(code=4401)
+        return
+    block = await asyncio.to_thread(usage.voice_block, user["id"])
+    if block:
+        await ws.send_text(json.dumps({"type": "final_assistant_answer",
+                                       "content": "Voice has reached today's limit. The chat box still works."}))
+        await ws.close(code=4429)
         return
     if not enabled():
         await ws.send_text(json.dumps({"type": "final_assistant_answer", "content": "Voice is not configured on this server."}))

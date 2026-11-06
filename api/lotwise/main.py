@@ -6,13 +6,14 @@ from fastapi import FastAPI, WebSocket
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import db, routes_admin, routes_auth, routes_intake, routes_valuations, voice
+from . import db, routes_admin, routes_auth, routes_intake, routes_valuations, usage, voice
 from .config import APP_DIR, APP_STAGE, BASE_PATH, INTAKE_MODEL
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db.pool.open()
+    usage.ensure_table()
     yield
     db.pool.close()
 

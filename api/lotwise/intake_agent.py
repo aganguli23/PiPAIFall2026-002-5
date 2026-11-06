@@ -18,6 +18,7 @@ from anthropic import AsyncAnthropic
 
 from . import intake_fields as F
 from . import intake_assistant as intake_rules   # skeleton: rule-based fallback
+from . import usage
 from .config import ANTHROPIC_API_KEY, INTAKE_MODEL
 from .property_lookup import neighbor_lots, resolve_subject
 
@@ -246,6 +247,22 @@ async def run_turn(state: dict, user_text: str, mode: str = "chat", on_text=None
     c = client()
     if c is None:
         return _fallback(state, user_text, transcript)
+    uid = state.get("user_id")
+    if uid:                                                   # spend caps (usage.py): refuse floods, degrade on budgets
+        lim = await asyncio.to_thread(usage.limits_for, uid)
+        if len(user_text) > lim["msg_chars"]:
+            return _reply_only(state, transcript, f"That's a long one! Could you keep it under {int(lim['msg_chars']):,} "
+                                                  "characters? Just the answer to my last question is perfect.")
+        if not usage.burst_ok(uid, lim):
+            return _reply_only(state, transcript, "You're typing faster than I can keep up 😅 Give me a few seconds and "
+                                                  "send that again.")
+        block = await asyncio.to_thread(usage.ai_turn_block, uid, state)
+        if block:
+            out = _fallback(state, user_text, transcript, note=block)
+            if (state.get("field_meta") or {}).get("_fallback") != block:     # explain the switch once
+                out["text"] = CAP_NOTE.get(block, CAP_NOTE["day_usd"]) + "\n\n" + out["text"]
+                out["transcript"][-1]["text"] = out["text"]
+            return out
 
     messages.append({"role": "user", "content": f"{_state_note(fields)}\n\nSeller: {user_text}"})
     reply_parts: list[str] = []
@@ -265,7 +282,9 @@ async def run_turn(state: dict, user_text: str, mode: str = "chat", on_text=None
     try:
         for _ in range(MAX_TOOL_ROUNDS):
             round_start = len(reply_parts)
-            async with c.messages.stream(model=INTAKE_MODEL, max_tokens=1024, system=system_prompt(mode),
+            async with c.messages.stream(model=INTAKE_MODEL, max_tokens=1024,
+                                         system=[{"type": "text", "text": system_prompt(mode),     # tools + system cached
+                                                  "cache_control": {"type": "ephemeral"}}],
                                          messages=messages, tools=tools(), tool_choice={"type": "auto"},
                                          thinking={"type": "between_tools"}, output_config={"effort": "low"}) as stream:
                 async for ev in stream:
@@ -274,6 +293,11 @@ async def run_turn(state: dict, user_text: str, mode: str = "chat", on_text=None
                         if on_text:
                             await on_text(ev.text)
                 final = await stream.get_final_message()
+            if uid:
+                u = final.usage
+                await asyncio.to_thread(usage.record, uid, tokens_in=u.input_tokens or 0, tokens_out=u.output_tokens or 0,
+                                        cache_read=getattr(u, "cache_read_input_tokens", 0) or 0,
+                                        cache_write=getattr(u, "cache_creation_input_tokens", 0) or 0)
             messages.append({"role": "assistant", "content": _blocks(final.content)})
             if final.stop_reason in ("max_tokens", "refusal"):
                 break
@@ -336,10 +360,28 @@ async def run_turn(state: dict, user_text: str, mode: str = "chat", on_text=None
 
     # Text written before a tool call is the model's working note, not a message: show only the last round's text.
     last = "".join(reply_parts[round_start:]).strip() if reply_parts else ""
+    if uid:
+        await asyncio.to_thread(usage.record, uid, turns=1)
     text = last or "".join(reply_parts).strip() or "Got it. " + ((F.next_question(fields) or {}).get("ask") or "")
     transcript.append({"role": "assistant", "text": text})
     return {"fields": fields, "field_meta": meta, "subject": subject, "messages": messages, "transcript": transcript,
             "text": text, "filled": sorted(set(filled))}
+
+
+CAP_NOTE = {
+    "session_turns": "We've been chatting a while, so I'm switching to quick mode for the rest of this one.",
+    "day_turns": "You've hit today's limit for the smart assistant, so I'm switching to quick mode.",
+    "day_usd": "You've hit today's limit for the smart assistant, so I'm switching to quick mode.",
+    "global_usd": "The smart assistant is very busy right now, so I'm switching to quick mode.",
+}
+
+
+def _reply_only(state: dict, transcript: list, text: str) -> dict:
+    """Answer without the model and without touching the form (the message is not counted as an answer)."""
+    transcript.append({"role": "assistant", "text": text})
+    return {"fields": dict(state.get("fields") or {}), "field_meta": dict(state.get("field_meta") or {}),
+            "subject": state.get("subject"), "messages": state.get("messages") or [], "transcript": transcript,
+            "text": text, "filled": []}
 
 
 def _fallback(state: dict, user_text: str, transcript: list, note: str = "no_api_key") -> dict:
