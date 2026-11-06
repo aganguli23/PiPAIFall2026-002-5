@@ -7,3 +7,4 @@ python-dotenv==1.1.0
 fpdf2==2.8.3
 pydantic==2.11.4
 anthropic==2.5.0
+openai==3.46.0

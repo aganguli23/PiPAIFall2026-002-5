@@ -57,7 +57,7 @@ export default function Intake() {
   return (
     <div className="review">
       {chat && <ChatSheet sid={sid} s={s} setS={setS} schema={schema.fields} skip={schema.skip_token}
-        unlocked={unlocked} onUnlock={unlock}
+        autoVoice={s.mode === "voice" && s.transcript.length <= 1} unlocked={unlocked} onUnlock={unlock}
         onClose={() => setChat(false)} />}
       {unlocked && !chat && <>
       <section className="card form-in">

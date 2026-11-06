@@ -1,10 +1,11 @@
-// Fullscreen iMessage-style intake conversation (ported from the first full draft). It opens first, before the form.
-// In the skeleton the placeholder rule-based assistant answers via POST /message (no streaming, no voice); each reply
-// bubble is "typed" (typing dots, then the bubble) at a pace a little faster than a person types. The form behind the
-// sheet unlocks after GATE messages from each side, when every question is answered, or on "Skip conversation".
+// Fullscreen iMessage-style intake conversation. It opens first, before the form. The assistant (Claude Sonnet via
+// POST /message, or voice) asks the questions; each reply bubble is "typed" (typing dots, then the bubble) at a pace a
+// little faster than a person types. The form behind the sheet unlocks after GATE messages from each side, when every
+// question is answered, or when the seller taps "Skip conversation".
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { api, label, num } from "../api.js";
 import { isShown } from "./FieldForm.jsx";
+import VoicePanel from "./VoicePanel.jsx";
 
 export const GATE = 10;          // messages from EACH side before the form appears
 const WPM = 375;                 // assistant "typing" speed (6.25x the first 60 wpm); a typical person types ~40 wpm
@@ -66,12 +67,13 @@ function LotCard({ s }) {
   );
 }
 
-export default function ChatSheet({ sid, s, setS, schema, skip, unlocked, onUnlock, onClose }) {
+export default function ChatSheet({ sid, s, setS, schema, skip, autoVoice, unlocked, onUnlock, onClose }) {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [live, setLive] = useState({});        // { user } or { thinking } for the turn in flight
   const [notes, setNotes] = useState([]);      // { at, kind: "saved" | "lot", ... } shown between bubbles
   const [closing, setClosing] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(false);
   const [err, setErr] = useState("");
   const [shown, setShown] = useState(0);       // how many thread items are revealed so far
   const [typing, setTyping] = useState(false); // assistant typing dots before the next bubble
@@ -249,9 +251,17 @@ export default function ChatSheet({ sid, s, setS, schema, skip, unlocked, onUnlo
         </div>
 
         <form className="ims-compose" onSubmit={send}>
+          <VoicePanel compact sid={sid} autoStart={autoVoice}
+            onLive={setVoiceOn}
+            onUserPartial={() => { turnAt.current = s.transcript.length; setLive({ user: "…" }); }}
+            onUser={(t) => { setLive(t ? { thinking: true } : {}); if (t) setS((p) => ({ ...p, transcript: [...p.transcript, { role: "user", text: t }] })); }}
+            onAssistantPartial={() => {}}
+            onAssistant={(t) => { setLive({}); setS((p) => ({ ...p, transcript: [...p.transcript, { role: "assistant", text: t }] })); }}
+            onForm={applyForm}
+            onStop={() => api.get(`/intake/sessions/${sid}`).then((v) => { prev.current = { fields: v.fields, subject: v.subject }; setS(v); })} />
           <div className="ims-field">
-            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)}
-              placeholder="Message" aria-label="Message" />
+            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} disabled={voiceOn}
+              placeholder={voiceOn ? "Listening… just talk" : "Message"} aria-label="Message" />
             <button className="ims-send" disabled={!text.trim() || busy || pacing} aria-label="Send">
               <svg viewBox="0 0 24 24"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>
             </button>

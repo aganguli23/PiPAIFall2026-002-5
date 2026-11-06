@@ -6,8 +6,8 @@ from fastapi import FastAPI, WebSocket
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import db, routes_admin, routes_auth, routes_intake, routes_valuations
-from .config import APP_DIR, APP_STAGE, BASE_PATH
+from . import db, routes_admin, routes_auth, routes_intake, routes_valuations, voice
+from .config import APP_DIR, APP_STAGE, BASE_PATH, INTAKE_MODEL
 
 
 @asynccontextmanager
@@ -41,15 +41,13 @@ def health():
 
 @app.get("/api/voice/status")
 def voice_status():
-    return {"enabled": False, "note": "Voice arrives in the first full draft (RealtimeVoiceChat client + cloud speech + Claude Haiku)."}
+    return {"enabled": voice.enabled(), "stt": voice.STT_MODEL, "tts": voice.TTS_MODEL, "llm": INTAKE_MODEL}
 
 
 @app.websocket("/ws/voice")
 @app.websocket(f"{BASE_PATH}/ws/voice")
 async def voice_ws(ws: WebSocket):
-    await ws.accept()
-    await ws.send_json({"type": "final_assistant_answer", "content": "Voice is not enabled in the skeleton yet."})
-    await ws.close()
+    await voice.voice_ws(ws)
 
 
 # Local convenience: serve the built React app at BASE_PATH (nginx does this on the e2-micro).

@@ -205,3 +205,7 @@ input.tiny { width: 80px; padding: 4px 6px; }
 .ims-fab svg { width: 28px; height: 28px; fill: #fff; }
 @media (prefers-reduced-motion: reduce) { .ims-backdrop *, .ims-backdrop { animation: none !important; } }
 @media (max-width: 700px) { .ims-fab { display: none; } }
+
+/* whole valuation row opens it */
+.rowlink { cursor: pointer; }
+.rowlink:hover td { background: #f3f6fa; }

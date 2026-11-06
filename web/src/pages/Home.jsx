@@ -32,7 +32,7 @@ export default function Home() {
             <thead><tr><th>#</th><th>Property</th><th>Engine</th><th>Structure</th><th>Value</th><th>Date</th></tr></thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.id}>
+                <tr key={r.id} className="rowlink" onClick={() => nav(`/results/${r.id}`)}>
                   <td><Link to={`/results/${r.id}`}>{r.id}</Link></td>
                   <td>{r.label || "–"}</td>
                   <td>{label(r.engine)}</td>

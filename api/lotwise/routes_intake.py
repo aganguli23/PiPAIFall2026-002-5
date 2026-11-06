@@ -26,6 +26,14 @@ def _view(s: dict) -> dict:
             "missing": F.missing(s["fields"] or {}), "subject": s["subject"]}
 
 
+def save_turn(sid: int, out: dict) -> dict:
+    """Persist one assistant turn (chat or voice)."""
+    return db.run("""UPDATE intake_sessions SET transcript = %s, messages = %s, fields = %s, field_meta = %s, subject = %s,
+                     updated_at = now() WHERE id = %s RETURNING *""",
+                  (db.J(out["transcript"]), db.J(out["messages"]), db.J(out["fields"]), db.J(out["field_meta"]),
+                   db.J(out["subject"]) if out.get("subject") is not None else None, sid))
+
+
 @router.get("/schema")
 def schema():
     return {"fields": F.public_schema(), "skip_token": F.SKIP, "tc_version": TC_VERSION}
@@ -57,11 +65,7 @@ class Message(BaseModel):
 async def message(sid: int, body: Message, user: dict = Depends(auth.current_user)):
     s = await asyncio.to_thread(_session, sid, user)
     out = await agent.run_turn(s, body.text.strip()[:4000], mode="chat")
-    s = await asyncio.to_thread(db.run, """UPDATE intake_sessions SET transcript = %s, messages = %s, fields = %s, field_meta = %s,
-                     subject = %s, updated_at = now() WHERE id = %s RETURNING *""",
-                     (db.J(out["transcript"]), db.J(out["messages"]), db.J(out["fields"]), db.J(out["field_meta"]),
-                      db.J(out["subject"]) if out.get("subject") is not None else None, sid))
-    return _view(s)
+    return _view(await asyncio.to_thread(save_turn, sid, out))
 
 
 class FieldEdit(BaseModel):
